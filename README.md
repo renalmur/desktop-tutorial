@@ -19,7 +19,7 @@
 
 ```bash
 git clone https://github.com/renalmur/desktop-tutorial.git
-cd cloud-control
+cd desktop-tutorial
 
 python -m venv .venv
 .venv\Scripts\activate          # Windows

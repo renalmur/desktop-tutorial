@@ -1,0 +1,12 @@
+sentinel2_scene.png и sentinel2_scene_reference_mask.png
+
+Источник: тестовые данные открытого проекта s2cloudless (Sentinel Hub, Sinergise),
+https://github.com/sentinel-hub/sentinel2-cloud-detector  (файл tests/TestInputs/input_arrays.npz).
+Лицензия источника: Creative Commons Attribution-ShareAlike 4.0 (CC BY-SA 4.0).
+Данные получены со спутника Sentinel-2 программы Copernicus.
+
+Что изменено: из 13 спектральных каналов взяты три (B04 красный, B03 зелёный, B02 синий),
+яркость растянута (умножение на 2.5 и гамма 1/1.4) и сохранена как обычная цветная картинка.
+Маска — результат алгоритма s2cloudless из того же файла (белое — облако).
+
+Эти два файла распространяются на условиях той же лицензии CC BY-SA 4.0.

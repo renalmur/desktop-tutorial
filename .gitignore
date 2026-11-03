@@ -1,0 +1,50 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vscode/
+
+# Данные: полный набор снимков не хранится в репозитории
+data/incoming/*.jpg
+data/incoming/*.jpeg
+data/incoming/*.png
+data/incoming/*.tif
+data/incoming/*.tiff
+data/incoming/*.bmp
+data/incoming/*.webp
+data/incoming/README_DEMO.txt
+
+data/saved/*
+!data/saved/.gitkeep
+!data/saved/README.txt
+
+data/trash/*
+!data/trash/.gitkeep
+!data/trash/README.txt
+
+data/previews/*
+!data/previews/.gitkeep
+
+# Полный набор Спутникса скачивается скриптом; в Git лежат только 3 демо-снимка
+data/real_extra/*.jpg
+!data/real_extra/2025-02-26_16-16-54_SXC3-2323_1.jpg
+!data/real_extra/2025-09-24_12-13-19_SXC3-232_1.jpg
+!data/real_extra/2026-06-03_14-09-03_SXC3-2331_1.jpg
+data/real_extra/*.kml
+
+# Служебные файлы и старые отчёты
+models/synth_cache.npz
+data/demo_answers.csv
+reports/report_20*.txt
+reports/report_20*.csv
+reports/report_20*.json
+reports/presentation/bg_*.jpg
+reports/presentation/video_frames/
+reports/presentation/_draft*
+reports/presentation/check/
+reports/presentation/final_check/
+reports/presentation/ui_mobile.png
+
+# Полная сырая видеозапись (в репозитории лежит сжатая версия)
+2026*.mp4

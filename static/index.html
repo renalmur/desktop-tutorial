@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Облачный контроль</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <h1>Облачный контроль</h1>
+      <p>Отсев облачных спутниковых снимков</p>
+    </div>
+    <nav class="tabs" role="tablist" aria-label="Разделы">
+      <button id="tab-process" class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-process">Обработка</button>
+      <button id="tab-label" class="tab" role="tab" aria-selected="false" aria-controls="panel-label">Разметка и дообучение</button>
+    </nav>
+    <p class="model-note" id="model-note">Проверяю модель…</p>
+  </header>
+
+  <!-- ============================== ОБРАБОТКА ============================== -->
+  <main id="panel-process" class="layout" role="tabpanel" aria-labelledby="tab-process">
+    <section class="controls deck" aria-label="Настройки обработки">
+      <div class="control-block">
+        <h2>Новые снимки</h2>
+        <label class="drop" id="drop">
+          <input type="file" id="files" multiple accept=".jpg,.jpeg,.png,.tif,.tiff,.bmp,.webp">
+          <span class="drop-title">Перетащите снимки сюда</span>
+          <span class="drop-hint">или нажмите, чтобы выбрать файлы</span>
+        </label>
+        <p class="picked" id="picked">Файлы не выбраны</p>
+      </div>
+
+      <div class="control-block">
+        <h2>Порог отсева</h2>
+        <div class="threshold">
+          <input type="range" id="threshold" min="0" max="100" step="1" value="75" aria-describedby="threshold-help">
+          <output id="threshold-value" for="threshold">75 %</output>
+        </div>
+        <p class="help" id="threshold-help">Снимок удаляется, если облака закрывают больше этой доли кадра. В задании кейса — 75 %.</p>
+
+        <h2 class="subhead">Что делать с облачными снимками</h2>
+        <label class="choice"><input type="radio" name="delete-mode" value="permanent" checked>
+          <span><b>Удалять насовсем</b><br>Так требует кейс. Вернуть файл будет нельзя.</span></label>
+        <label class="choice"><input type="radio" name="delete-mode" value="trash">
+          <span><b>Переносить в корзину</b><br>Файлы окажутся в папке data/trash — удобно, пока вы проверяете сеть.</span></label>
+      </div>
+
+      <div class="control-block control-run">
+        <h2>Запуск</h2>
+        <button class="primary" id="run" disabled>Обработать снимки</button>
+
+        <div class="folder-box" id="folder-box" hidden>
+          <p id="folder-text"></p>
+          <button class="secondary" id="run-folder">Обработать папку</button>
+        </div>
+        <p class="status" id="status" role="status" aria-live="polite">Выберите файлы или положите их в папку <code>data/incoming</code>.</p>
+      </div>
+    </section>
+
+    <section class="results" aria-label="Результаты">
+      <div class="empty" id="empty">
+        <h2>Результатов пока нет</h2>
+        <p>Выберите снимки в панели сверху и нажмите «Обработать снимки». Для каждого снимка нейросеть посчитает процент облачности и решит: сохранить или удалить.</p>
+        <p>Учебные снимки для пробы создаёт команда <code>python tools/make_samples.py</code> — они появятся в папке <code>data/incoming</code>.</p>
+
+        <div class="empty-steps" aria-label="Как пользоваться">
+          <div><b>1</b>Выберите снимки</div>
+          <div><b>2</b>Нажмите «Обработать»</div>
+          <div><b>3</b>Получите сообщение</div>
+        </div>
+      </div>
+
+      <div id="report" hidden>
+        <div class="summary" id="summary"></div>
+
+        <div class="message-head">
+          <h2>Сообщение оператору</h2>
+          <div class="message-actions">
+            <button class="secondary small" id="copy-message">Скопировать</button>
+            <a class="secondary small" id="download-txt" href="#">Скачать .txt</a>
+            <a class="secondary small" id="download-csv" href="#">Таблица .csv</a>
+          </div>
+        </div>
+        <pre class="message" id="message" tabindex="0"></pre>
+
+        <h2>Снимки</h2>
+        <p class="help">Слева снимок, справа он же с облаками, закрашенными малиновым. Нажмите на миниатюру, чтобы открыть снимок в полном размере. Отметка на шкале — порог отсева. Миниатюры остаются для проверки, даже если сам файл удалён.</p>
+        <ol class="rows" id="rows"></ol>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================== РАЗМЕТКА ============================== -->
+  <main id="panel-label" class="layout label-layout" role="tabpanel" aria-labelledby="tab-label" hidden>
+    <section class="controls deck label-controls" aria-label="Снимки для разметки">
+      <div class="control-block">
+        <h2>Настоящие снимки</h2>
+        <p class="help">Положите снимки Спутникса в папку <code>data/real</code> или добавьте их здесь. Потом покажите сети, где на них облака, а где нет.</p>
+        <label class="secondary file-button">Добавить снимки
+          <input type="file" id="real-files" multiple accept=".jpg,.jpeg,.png,.tif,.tiff,.bmp,.webp">
+        </label>
+        <ul class="image-list" id="image-list"></ul>
+      </div>
+
+      <div class="control-block">
+        <h2>Дообучение</h2>
+        <p class="help">Сеть заново подберёт веса: учебные снимки плюс все ваши мазки. Обычно это одна-две минуты.</p>
+        <button class="primary" id="train">Дообучить сеть</button>
+        <button class="secondary" id="reset-model">Вернуть базовую модель</button>
+        <pre class="train-log" id="train-log" hidden></pre>
+      </div>
+    </section>
+
+    <section class="results" aria-label="Холст разметки">
+      <div class="empty" id="label-empty">
+        <h2>Выберите снимок слева</h2>
+        <p>Разметка мазками: не нужно обводить каждое облако. Достаточно провести кистью по нескольким облакам и по нескольким местам без облаков — особенно там, где сеть ошибается.</p>
+      </div>
+      <div id="label-work" hidden>
+        <div class="toolbar" role="toolbar" aria-label="Инструменты разметки">
+          <div class="tool-group" role="radiogroup" aria-label="Кисть">
+            <button class="tool is-active" data-tool="cloud" role="radio" aria-checked="true"><i class="swatch cloud"></i>Облако</button>
+            <button class="tool" data-tool="clear" role="radio" aria-checked="false"><i class="swatch clear"></i>Не облако</button>
+            <button class="tool" data-tool="erase" role="radio" aria-checked="false"><i class="swatch erase"></i>Ластик</button>
+          </div>
+          <label class="size">Размер кисти <input type="range" id="brush" min="2" max="40" value="14"></label>
+          <label class="check"><input type="checkbox" id="show-prediction"> Показать, что видит сеть</label>
+          <button class="primary small" id="save-label">Сохранить разметку</button>
+        </div>
+        <p class="status" id="label-status" role="status" aria-live="polite"></p>
+        <div class="stage" id="stage">
+          <canvas id="canvas-image"></canvas>
+          <img id="prediction" alt="" hidden>
+          <canvas id="canvas-label" aria-label="Холст для мазков разметки"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Просмотр снимка в полном размере -->
+  <div class="viewer" id="viewer" hidden role="dialog" aria-modal="true" aria-label="Просмотр снимка">
+    <div class="viewer-bar">
+      <span class="viewer-name" id="viewer-name"></span>
+      <div class="viewer-actions">
+        <button class="secondary small" id="viewer-zoom-out" title="Уменьшить">−</button>
+        <button class="secondary small" id="viewer-zoom-reset" title="Сбросить масштаб">100 %</button>
+        <button class="secondary small" id="viewer-zoom-in" title="Увеличить">+</button>
+        <a class="secondary small" id="viewer-open" href="#" target="_blank" rel="noopener" hidden>Открыть оригинал</a>
+        <button class="secondary small" id="viewer-close">Закрыть</button>
+      </div>
+    </div>
+    <div class="viewer-stage" id="viewer-stage">
+      <img id="viewer-img" alt="">
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

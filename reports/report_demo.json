@@ -1,0 +1,113 @@
+{
+  "started_at": "2026-10-27T18:57:14",
+  "threshold": 75.0,
+  "delete_mode": "permanent",
+  "incoming_dir": "D:\\project_skolcovo\\data\\incoming",
+  "saved_dir": "D:\\project_skolcovo\\data\\saved",
+  "results": [
+    {
+      "name": "2025-02-26_16-16-54_SXC3-2323_1.jpg",
+      "status": "saved",
+      "cloud_percent": 0.1,
+      "saved_as": "2025-02-26_16-16-54_SXC3-2323_1.jpg",
+      "moved_to_trash": false,
+      "error": null,
+      "width": 3280,
+      "height": 2464,
+      "preview": "0001_photo.jpg",
+      "overlay": "0001_clouds.jpg"
+    },
+    {
+      "name": "2025-09-24_12-13-19_SXC3-232_1.jpg",
+      "status": "saved",
+      "cloud_percent": 35.1,
+      "saved_as": "2025-09-24_12-13-19_SXC3-232_1.jpg",
+      "moved_to_trash": false,
+      "error": null,
+      "width": 3280,
+      "height": 2464,
+      "preview": "0002_photo.jpg",
+      "overlay": "0002_clouds.jpg"
+    },
+    {
+      "name": "2026-06-03_14-09-03_SXC3-2331_1.jpg",
+      "status": "saved",
+      "cloud_percent": 64.2,
+      "saved_as": "2026-06-03_14-09-03_SXC3-2331_1.jpg",
+      "moved_to_trash": false,
+      "error": null,
+      "width": 3280,
+      "height": 2464,
+      "preview": "0003_photo.jpg",
+      "overlay": "0003_clouds.jpg"
+    },
+    {
+      "name": "demo_01.jpg",
+      "status": "saved",
+      "cloud_percent": 4.8,
+      "saved_as": "demo_01.jpg",
+      "moved_to_trash": false,
+      "error": null,
+      "width": 640,
+      "height": 640,
+      "preview": "0004_photo.jpg",
+      "overlay": "0004_clouds.jpg"
+    },
+    {
+      "name": "demo_02.jpg",
+      "status": "saved",
+      "cloud_percent": 42.0,
+      "saved_as": "demo_02.jpg",
+      "moved_to_trash": false,
+      "error": null,
+      "width": 640,
+      "height": 640,
+      "preview": "0005_photo.jpg",
+      "overlay": "0005_clouds.jpg"
+    },
+    {
+      "name": "demo_03.jpg",
+      "status": "saved",
+      "cloud_percent": 68.2,
+      "saved_as": "demo_03.jpg",
+      "moved_to_trash": false,
+      "error": null,
+      "width": 640,
+      "height": 640,
+      "preview": "0006_photo.jpg",
+      "overlay": "0006_clouds.jpg"
+    },
+    {
+      "name": "demo_04.jpg",
+      "status": "deleted",
+      "cloud_percent": 81.7,
+      "saved_as": null,
+      "moved_to_trash": false,
+      "error": null,
+      "width": 640,
+      "height": 640,
+      "preview": "0007_photo.jpg",
+      "overlay": "0007_clouds.jpg"
+    },
+    {
+      "name": "demo_05.jpg",
+      "status": "deleted",
+      "cloud_percent": 97.6,
+      "saved_as": null,
+      "moved_to_trash": false,
+      "error": null,
+      "width": 640,
+      "height": 640,
+      "preview": "0008_photo.jpg",
+      "overlay": "0008_clouds.jpg"
+    }
+  ],
+  "seconds": 2.95,
+  "counts": {
+    "total": 8,
+    "saved": 6,
+    "deleted": 2,
+    "errors": 0
+  },
+  "message": "РЕЗУЛЬТАТ ОБРАБОТКИ СНИМКОВ\nДата и время: 2026-10-27 18:57:14\nПорог отсева: облачность выше 75 %\nОбработано: 8   сохранено: 6   удалено: 2   не прочитано: 0\n\nСОХРАНЁННЫЕ ФАЙЛЫ\n  1. 2025-02-26_16-16-54_SXC3-2323_1.jpg — облачность 0,1 %\n  2. 2025-09-24_12-13-19_SXC3-232_1.jpg — облачность 35,1 %\n  3. 2026-06-03_14-09-03_SXC3-2331_1.jpg — облачность 64,2 %\n  4. demo_01.jpg — облачность 4,8 %\n  5. demo_02.jpg — облачность 42,0 %\n  6. demo_03.jpg — облачность 68,2 %\n\nУДАЛЁННЫЕ ФАЙЛЫ\n  1. demo_04.jpg — облачность 81,7 %\n  2. demo_05.jpg — облачность 97,6 %"
+}

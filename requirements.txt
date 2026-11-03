@@ -1,0 +1,11 @@
+# Нужен Python 3.10 или новее.  Установка:  pip install -r requirements.txt
+numpy>=1.26
+scipy>=1.11
+pillow>=10.0
+scikit-learn>=1.3        # только для обучения (train.py и кнопка «Дообучить сеть»)
+python-pptx>=0.6.23      # только для сборки презентации (tools/make_presentation.py)
+fastapi>=0.110           # веб-интерфейс
+uvicorn>=0.29
+python-multipart>=0.0.9  # приём файлов со страницы
+pytest>=8.0              # автотесты
+httpx>=0.27              # нужен тестам веб-интерфейса

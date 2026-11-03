@@ -18,7 +18,7 @@
 Нужен Python 3.10 или новее.
 
 ```bash
-git clone https://github.com/ВАШ_ЛОГИН/cloud-control.git
+git clone https://github.com/renalmur/desktop-tutorial.git
 cd cloud-control
 
 python -m venv .venv
